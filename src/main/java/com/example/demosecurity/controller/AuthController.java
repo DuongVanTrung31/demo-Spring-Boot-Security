@@ -8,7 +8,6 @@ import com.example.demosecurity.model.entity.AppUser;
 import com.example.demosecurity.service.IRoleService;
 import com.example.demosecurity.service.IUserService;
 import com.example.demosecurity.service.jwt.JwtService;
-import com.sun.corba.se.impl.oa.poa.ActiveObjectMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +23,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/auth")
+@CrossOrigin("*")
 public class AuthController {
     @Autowired
     IUserService userService;
