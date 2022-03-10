@@ -1,9 +1,7 @@
 package com.example.demosecurity.controller;
 
 
-import com.example.demosecurity.model.entity.Category;
 import com.example.demosecurity.model.entity.Product;
-import com.example.demosecurity.service.ICategoryService;
 import com.example.demosecurity.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,9 +10,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.datasource.embedded.ConnectionProperties;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
@@ -58,15 +59,16 @@ public class ProductController {
     }
 
 
-    @PostMapping("/save")
-    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
-        String fileName = product.getFile().getOriginalFilename();
+    @PostMapping(consumes = {"multipart/form-data"})
+    public ResponseEntity<Product> createProduct(@RequestPart("json") Product product,
+                                                 @RequestPart("file") MultipartFile file) {
+        String fileName = file.getOriginalFilename();
         try {
-            FileCopyUtils.copy(product.getFile().getBytes(), new File(upload + fileName));
+            FileCopyUtils.copy(file.getBytes(), new File(upload + fileName));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        product.setImage("images/"+ fileName);
+        product.setImage(fileName);
         Product productCreate = iProductService.save(product);
         return new ResponseEntity<>(productCreate, HttpStatus.CREATED);
     }

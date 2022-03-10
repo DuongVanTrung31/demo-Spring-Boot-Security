@@ -1,9 +1,8 @@
 package com.example.demosecurity.controller;
 
-import com.example.demosecurity.model.dto.payloads.request.SignUpForm;
-import com.example.demosecurity.model.dto.payloads.response.JwtResponse;
-import com.example.demosecurity.model.dto.payloads.response.ResponseMessage;
-import com.example.demosecurity.model.entity.AppRole;
+import com.example.demosecurity.model.dto.payload.request.SignUpForm;
+import com.example.demosecurity.model.dto.payload.response.JwtResponse;
+import com.example.demosecurity.model.dto.payload.response.ResponseMessage;
 import com.example.demosecurity.model.entity.AppUser;
 import com.example.demosecurity.service.IRoleService;
 import com.example.demosecurity.service.IUserService;

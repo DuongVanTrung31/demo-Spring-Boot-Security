@@ -1,4 +1,4 @@
-package com.example.demosecurity.model.dto.payloads.request;
+package com.example.demosecurity.model.dto.payload.request;
 
 import com.example.demosecurity.model.entity.AppRole;
 import lombok.AllArgsConstructor;

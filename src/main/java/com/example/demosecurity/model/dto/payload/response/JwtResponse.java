@@ -1,4 +1,4 @@
-package com.example.demosecurity.model.dto.payloads.response;
+package com.example.demosecurity.model.dto.payload.response;
 
 
 import lombok.AllArgsConstructor;

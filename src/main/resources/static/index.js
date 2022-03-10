@@ -1,8 +1,8 @@
 let index = 0;
 
 function addNewProduct() {
-    let image = $('#image').val();
     //lay du lieu
+    let data = new FormData();
     let name = $('#name').val();
     let price = $('#price').val();
     let description = $('#description').val();
@@ -10,20 +10,22 @@ function addNewProduct() {
     let newProduct = {
         name: name,
         price: price,
-        image: image,
         description: description,
         category: {
             id: category,
         }
     };
+    data.append("file", $('#image')[0].files[0]);
+    data.append("json", new Blob([JSON.stringify(newProduct)],{
+        type: "application/json"
+    }))
     // goi ajax
     $.ajax({
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
         type: "POST",
-        data: JSON.stringify(newProduct),
+        data: data,
+        processData: false,
+        contentType: false,
+        mimeType: "multipart/form-data",
         //tên API
         url: "http://localhost:8080/api/products",
         //xử lý khi thành công
@@ -67,7 +69,7 @@ function editProduct1() {
     let newProduct = {
         name: name,
         price: price,
-        image: imagek,
+        image: image,
         description: description,
         category: {
             id: category,
@@ -203,7 +205,7 @@ function searchProduct() {
 }
 
 function displayProduct(product) {
-    return `<tr><td>${product.name}</td><td>${product.price}</td><td><img src="${product.image}"/></td>
+    return `<tr><td>${product.name}</td><td>${product.price}</td><td><img src="${product.image}"></td>
             <td>${product.description}</td><td>${product.category.name}</td>
             <td><button class="btn btn-danger" onclick="deleteProduct(${product.id})">Delete</button></td>
             <td><button class="btn btn-warning" onclick="editProduct(${product.id})">Edit</button></td></tr>`;
