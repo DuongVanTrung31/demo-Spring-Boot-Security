@@ -15,7 +15,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
@@ -28,8 +28,11 @@ public class ProductController {
     @Autowired
     private IProductService iProductService;
 
-    @Value("${upload_file}")
+    @Value("${upload.path}")
     private String upload;
+
+    @Value("${render.path}")
+    private String render;
 
     @GetMapping
     public ResponseEntity<Iterable<Product>> showAll() {
@@ -68,7 +71,7 @@ public class ProductController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        product.setImage(fileName);
+        product.setImage(render + fileName);
         Product productCreate = iProductService.save(product);
         return new ResponseEntity<>(productCreate, HttpStatus.CREATED);
     }
