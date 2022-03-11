@@ -25,7 +25,6 @@ function addNewProduct() {
         data: data,
         processData: false,
         contentType: false,
-        mimeType: "multipart/form-data",
         //tên API
         url: "http://localhost:8080/api/products",
         //xử lý khi thành công

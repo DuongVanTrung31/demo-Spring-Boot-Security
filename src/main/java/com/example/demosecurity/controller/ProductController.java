@@ -62,7 +62,7 @@ public class ProductController {
     }
 
 
-    @PostMapping(consumes = {"multipart/form-data"})
+    @PostMapping()
     public ResponseEntity<Product> createProduct(@RequestPart("json") Product product,
                                                  @RequestPart("file") MultipartFile file) {
         String fileName = file.getOriginalFilename();
